@@ -14,7 +14,7 @@ var dx = xPos[Math.floor(Math.random() * xPos.length)];
 var paddleHeight = 10;
 var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
-var paddleColor = "green"
+var paddleColor = "green";
 
 var rightPressed = false;
 var leftPressed = false;
