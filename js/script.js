@@ -1,4 +1,9 @@
 var canvas = document.getElementById("myCanvas");
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+  canvas.height = 340;
+  canvas.width = 440;
+}
+
 var ctx = canvas.getContext("2d");
 var x = canvas.width/2;
 var y = canvas.height-30;
@@ -72,8 +77,10 @@ function touchHandler(e) {
   var touchX = e.clientX;
   if (touchX > window.innerWidth/2) {
     rightPressed = true;
-  } else {
+    leftPressed = false;
+  } else if (touchX < window.innerWidth/2) {
     leftPressed = true;
+    rightPressed = false;
   }
 }
 
