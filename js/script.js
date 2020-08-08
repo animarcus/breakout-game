@@ -14,6 +14,7 @@ var dx = xPos[Math.floor(Math.random() * xPos.length)];
 var paddleHeight = 10;
 var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
+var paddleColor = "green"
 
 var rightPressed = false;
 var leftPressed = false;
@@ -32,6 +33,8 @@ var score = 0;
 var hitBricks = 0;
 
 var lives = 3;
+
+var autoplayerstate = true;
 
 
 var bricks = [];
@@ -81,7 +84,6 @@ function collisionDetection() {
       if (b.status === 1) {
         if (x > b.x  &&
             x < b.x + brickWidth  &&
-
             y > b.y  &&
             y < b.y + brickHeight ) {
           dy = -dy;
@@ -109,7 +111,14 @@ document.addEventListener("mousedown", mouseMoveHandler, false);
 document.addEventListener("touchstart", touchHandler, false);
 
 
-
+function autoplayer() {
+  if (autoplayerstate === true) {
+    autoplayerstate = false;
+  } else {
+    autoplayerstate = true;
+  }
+  console.log(autoplayerstate);
+}
 
 function drawBricks() {
   for (var c=0; c < brickColumnCount; c++) {
@@ -140,7 +149,21 @@ function drawBall() {
 function drawPaddle() {
   ctx.beginPath();
   ctx.rect(paddleX,canvas.height-paddleHeight, paddleWidth, paddleHeight);
-  ctx.fillStyle = "green";
+  // console.log(autoplayerstate)
+  if (autoplayerstate === true) {
+    if (paddleColor === "green") {
+      paddleColor = "yellow";
+    } else if (paddleColor === "yellow") {
+      paddleColor = "lime";
+    } else if (paddleColor === "lime") {
+      paddleColor = "purple";
+    } else if (paddleColor === "purple") {
+      paddleColor = "green";
+    }
+  } else {
+    paddleColor = "green";
+  }
+  ctx.fillStyle = paddleColor;
   ctx.fill();
   ctx.closePath();
 }
@@ -156,6 +179,7 @@ function drawLives() {
   ctx.fillStyle = "#0095DD";
   ctx.fillText("Lives: " + lives,canvas.width-65, 20);
 }
+
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -210,7 +234,9 @@ function draw() {
   x += dx;
   y += dy;
 
-  paddleX = x - paddleWidth/2;
+  if (autoplayerstate) {
+    paddleX = x - paddleWidth/2;
+  }
 
   requestAnimationFrame(draw);
 }
