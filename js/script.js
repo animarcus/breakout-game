@@ -1,8 +1,4 @@
 var canvas = document.getElementById("myCanvas");
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-  canvas.height = 340;
-  canvas.width = 440;
-}
 
 var ctx = canvas.getContext("2d");
 var x = canvas.width/2;
@@ -20,9 +16,11 @@ var paddleHeight = 10;
 var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
 var paddleColor = "green";
+var relativeX = 0;
 
 var rightPressed = false;
 var leftPressed = false;
+var mouseDown = false;
 
 var paddleSpeed = 6;
 
@@ -39,7 +37,7 @@ var hitBricks = 0;
 
 var lives = 3;
 
-var autoplayerstate = true;
+var autoplayerstate = false;
 
 
 var bricks = [];
@@ -66,10 +64,18 @@ function keyUpHandler(e) {
   }
 }
 
-function mouseMoveHandler(e) {
-  var relativeX = e.clientX - canvas.offsetLeft;
-  if (relativeX > 0 && relativeX < canvas.width) {
-    paddleX = relativeX - paddleWidth/2;
+function mouseDownHandler(e) {
+  mouseDown = true;
+}
+function mouseUpHandler(e) {
+  mouseDown = false;
+}
+function findMouseCoords(e) {
+  if (mouseDown) {
+    relativeX = e.clientX - canvas.offsetLeft;
+    if (relativeX > 0 && relativeX < canvas.width) {
+      paddleX = relativeX - paddleWidth/2;
+    }
   }
 }
 
@@ -112,10 +118,20 @@ function collisionDetection() {
   }
 }
 
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
-document.addEventListener("mousedown", mouseMoveHandler, false);
-document.addEventListener("touchstart", touchHandler, false);
+
+// brickColumnCount = window.innerWidth/2;
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+  document.addEventListener("touchstart", touchHandler, false);
+  canvas.width= window.innerWidth-window.innerWidth/6;
+} else {
+  document.addEventListener("keydown", keyDownHandler, false);
+  document.addEventListener("keyup", keyUpHandler, false);
+  document.addEventListener("mousedown", mouseDownHandler, false);
+  document.addEventListener("mouseup", mouseUpHandler, false);
+  document.getElementById("myCanvas").onmousemove = findMouseCoords;
+}
+
+
 
 
 function autoplayer() {
@@ -197,14 +213,11 @@ function draw() {
   drawLives();
   collisionDetection();
 
-
   if (x + dx < ballRadius || x + dx > canvas.width - ballRadius) {
     dx = -dx;
-
   }
   if (y + dy < ballRadius) {
     dy = -dy;
-
   }
   if (x > paddleX && x < paddleX + paddleWidth) {
     if (y + dy > canvas.height - paddleHeight - ballRadius/2) {
