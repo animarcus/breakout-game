@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="css/style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gamedev Trying Out</title>
-  <style>
-    *{ padding: 0; margin: 0; }
-    canvas { background: #eee; display: block; margin: 0 auto; }
-  </style>
 </head>
 <body>
+  <div class="wholegame">
+    <canvas id="myCanvas" class="myCanvas" width="480" height="380"></canvas>
+    <button id="autoplayer" class="autoplayer" onclick="extras.autoplayer()">Click here to activate god mode</button>
+    <div class="controls">
+      <button class="leftbtn">Move Left</button>
+      <button class="rightbtn">Move Right</button>
+    </div>
 
-  <canvas id="myCanvas" width="480" height="380"></canvas>
-  <button class="autoplayer" onclick="autoplayer()">Click here for autoplayer</button>
-
-  <script src="js/script.js"></script>
-
+    <script src="js/script.js"></script>
+  </div>
 </body>
 </html>
