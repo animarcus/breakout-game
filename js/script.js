@@ -79,18 +79,18 @@ var handlers = {
   mouseDownHandler : function(e) {
     mouseDown = true;
     let elementClicked = e.target;
-    if (elementClicked.className === "rightbtn") {
+    if (elementClicked.id === "rightBtn") {
       rightPressed = true;
-    } else if (elementClicked.className === "leftbtn") {
+    } else if (elementClicked.id === "leftBtn") {
       leftPressed = true;
     }
   },
   mouseUpHandler : function(e) {
     mouseDown = false;
     let elementClicked = e.target;
-    if (elementClicked.className === "rightbtn") {
+    if (elementClicked.id === "rightBtn") {
       rightPressed = false;
-    } else if (elementClicked.className === "leftbtn") {
+    } else if (elementClicked.id === "leftBtn") {
       leftPressed = false;
     }
   },
@@ -105,18 +105,18 @@ var handlers = {
   touchStart : function(e) {
     mouseDown = true;
     let elementClicked = e.target;
-    if (elementClicked.className === "rightbtn") {
+    if (elementClicked.id === "rightBtn") {
       rightPressed = true;
-    } else if (elementClicked.className === "leftbtn") {
+    } else if (elementClicked.id === "leftBtn") {
       leftPressed = true;
     }
   },
   touchEnd : function(e) {
     mouseDown = false;
     let elementClicked = e.target;
-    if (elementClicked.className === "rightbtn") {
+    if (elementClicked.id === "rightBtn") {
       rightPressed = false;
-    } else if (elementClicked.className === "leftbtn") {
+    } else if (elementClicked.id === "leftBtn") {
       leftPressed = false;
     }
   }
@@ -133,6 +133,7 @@ document.addEventListener("keyup", handlers.keyUpHandler, false);
 document.addEventListener("mousedown", handlers.mouseDownHandler, false);
 document.addEventListener("mouseup", handlers.mouseUpHandler, false);
 document.getElementById("myCanvas").onmousemove = handlers.findMouseCoords;
+
 
 
 

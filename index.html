@@ -8,11 +8,15 @@
 </head>
 <body>
   <div class="wholegame">
-    <canvas id="myCanvas" class="myCanvas" width="480" height="380"></canvas>
-    <button id="autoplayer" class="autoplayer" onclick="extras.autoplayer()">Click here to activate god mode</button>
+    <div>
+      <canvas id="myCanvas" class="myCanvas" width="480" height="380"></canvas>
+    </div>
+    <div class="autoplayer">
+      <button id="autoBtn" onclick="extras.autoplayer()">Click here to activate god mode</button>
+    </div>
     <div class="controls">
-      <button class="leftbtn">Move Left</button>
-      <button class="rightbtn">Move Right</button>
+        <button id="leftBtn">Move Left</button>
+        <button id="rightBtn">Move Right</button>
     </div>
 
     <script src="js/script.js"></script>
